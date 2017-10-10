@@ -13,4 +13,12 @@ public class TestResults {
         this.projectName = projectName;
         this.testResult = testResult;
     }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public TestResult getTestResult() {
+        return testResult;
+    }
 }

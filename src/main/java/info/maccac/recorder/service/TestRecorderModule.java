@@ -9,5 +9,6 @@ public class TestRecorderModule extends AbstractModule {
     protected void configure() {
         bind(TestResultsStore.class).to(TestResultsStoreImpl.class);
         bind(TestResultsPostHandler.class);
+        bind(TestResultsGetHandler.class);
     }
 }
