@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import info.maccac.recorder.api.TestResults;
 import info.maccac.recorder.db.TestResultsStore;
+import ratpack.exec.Blocking;
 import ratpack.handling.Context;
 import ratpack.handling.Handler;
 import ratpack.http.Status;
@@ -22,7 +23,7 @@ public class TestResultsPostHandler implements Handler {
 
     @Override
     public void handle(Context ctx) throws Exception {
-        ctx.parse(fromJson(TestResults.class)).then(t -> resultsStore.save(t));
-        ctx.getResponse().status(Status.OK).send();
+        ctx.parse(fromJson(TestResults.class))
+                .then(t -> Blocking.op(() -> resultsStore.save(t)).then(() -> ctx.getResponse().status(Status.OK).send()));
     }
 }
